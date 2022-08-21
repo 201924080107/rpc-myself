@@ -1,1 +1,7 @@
-此项目为从零开始手写RPC项目，主要分为三个阶段BIO、NIO、Netty
+此项目为从零开始手写RPC项目，主要分为三个阶段BIO、NIO、Netty三大阶段
+
+BIO阶段，使用动态代理对RPC调用方的请求进行统一封装，屏蔽底层细节，再由接收方通过反射调用方法，并通过自定义注解（@RPCService、@RPCReffernce）以及Spring所提供的钩子方法简化使用
+
+NIO阶段，基于多路复用技术并仿照Netty模式实现accept事件（boss线程）与read、write事件（worker线程）分离处理，使用wakeup方法与消息队列解决select死锁问题，使用分隔符拆分方式解决粘包半包问题
+
+Netty阶段，通过自定义协议、自定义编解码以及Netty所提供的LengthFieldBasedFrameDecoder解决粘包半包的问题，增加Kroy序列化协议的支持（原来只有Java自身序列化），增加框架的跨平台特性，使用Zookeeper + curator进行服务的注册与发现，并实现轮询以及随机策略的负载均衡机制。
